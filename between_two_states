@@ -1,0 +1,35 @@
+import requests
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pandas.io.json import json_normalize
+URL = "https://api.covid19india.org/data.json" 
+data = requests.get(url=URL).json()
+covid19_df = json_normalize(data['statewise'])
+def barplt(st1,st2):
+    c1=int(covid19_df[covid19_df.state==st1]['confirmed'])
+    a1=int(covid19_df[covid19_df.state==st1]['active'])
+    d1=int(covid19_df[covid19_df.state==st1]['deaths'])
+    r1=int(covid19_df[covid19_df.state==st1]['recovered'])
+    c2=int(covid19_df[covid19_df.state==st2]['confirmed'])
+    a2=int(covid19_df[covid19_df.state==st2]['active'])
+    d2=int(covid19_df[covid19_df.state==st2]['deaths'])
+    r2=int(covid19_df[covid19_df.state==st2]['recovered'])
+    x1=[c1,a1,d1,r1]
+    x2=[c2,a2,d2,r2]
+    now=datetime.now()
+    y=['confirmed','active','deaths','recovered']
+    xpos=np.arange(len(y))
+    plt.bar(xpos-0.2,x1,width=0.4,label=st1)
+    plt.bar(xpos+0.2,x2,width=0.4,label=st2)
+    plt.xlabel("Category")
+    plt.ylabel("No. of cases")
+    plt.title(st1+" and "+st2+" at "+now)
+    plt.xticks(xpos,y)
+    plt.legend()
+    plt.show()
+stn1=input("enter the name of state")
+stn2=input("enter the name of state")
+barplt(stn1.capitalize(),stn2.capitalize())
+ 
+    
