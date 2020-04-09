@@ -1,0 +1,66 @@
+import requests
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pandas.io.json import json_normalize
+URL = "https://api.covid19india.org/raw_data.json" 
+data = requests.get(url=URL).json()
+sex=pd.DataFrame(data["raw_data"])
+female=sex[sex["gender"]=="F"]
+male=sex[sex["gender"]=="M"]
+m_age=np.array(male['agebracket'])
+a1=0
+b1=0
+c1=0
+d1=0
+e1=0
+for i in m_age:
+    if i>'0' and i<='20':
+        a1+=1
+    elif i>'20' and i<='40':
+        b1+=1
+    elif i>'40' and i<='60':
+        c1+=1
+    elif i>'60' and i<='80':
+        d1+=1
+    else:
+        e1+=1
+print(a1)
+print(b1)
+print(c1)
+print(d1)
+print(e1)
+male_age=[a1,b1,c1,d1,e1]
+f_age=np.array(female['agebracket'])
+a2=0
+b2=0
+c2=0
+d2=0
+e2=0
+for i in f_age:
+    if i>'0' and i<='20':
+        a2+=1
+    elif i>'20' and i<='40':
+        b2+=1
+    elif i>'40' and i<='60':
+        c2+=1
+    elif i>'60' and i<='80':
+        d2+=1
+    else:
+        e2+=1
+print(a2)
+print(b2)
+print(c2)
+print(d2)
+print(e2)
+female_age=[a2,b2,c2,d2,e2]
+x=['0-20','21-40','41-60','61-80','81 to above']
+xpos=np.arange(len(x))
+print(xpos)
+plt.bar(xpos-0.2,male_age,width=0.4,label="Male")
+plt.bar(xpos+0.2,female_age,width=0.4,label="Female")
+plt.xticks(xpos,x)
+plt.xlabel("Age")
+plt.ylabel("No. of cases")
+plt.legend()
+plt.show()
