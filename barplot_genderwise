@@ -1,0 +1,18 @@
+import requests
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pandas.io.json import json_normalize
+URL = "https://api.covid19india.org/raw_data.json" 
+data = requests.get(url=URL).json()
+sex=pd.DataFrame(data["raw_data"])
+female=sex[sex["gender"]=="F"]
+male=sex[sex["gender"]=="M"]
+no_total=sex['patientnumber'].count()
+no_female=female['patientnumber'].count()
+no_male=male['patientnumber'].count()
+nan=no_total-no_female-no_male
+y=[no_male,no_female,nan]
+x=['Males','Female','NaN']
+plt.bar(x,y,color=["blue","green","red"])
+plt.show()
