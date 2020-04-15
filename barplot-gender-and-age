@@ -28,11 +28,6 @@ for i in m_age:
         d1+=1
     else:
         e1+=1
-print(a1)
-print(b1)
-print(c1)
-print(d1)
-print(e1)
 male_age=[a1,b1,c1,d1,e1]
 f_age=np.array(female['agebracket'])
 a2=0
@@ -51,15 +46,9 @@ for i in f_age:
         d2+=1
     else:
         e2+=1
-print(a2)
-print(b2)
-print(c2)
-print(d2)
-print(e2)
 female_age=[a2,b2,c2,d2,e2]
 x=['0-20','21-40','41-60','61-80','81 to above']
 xpos=np.arange(len(x))
-print(xpos)
 plt.bar(xpos-0.2,male_age,width=0.4,label="Male")
 plt.bar(xpos+0.2,female_age,width=0.4,label="Female")
 plt.xticks(xpos,x)
