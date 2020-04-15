@@ -13,6 +13,6 @@ no_female=female['patientnumber'].count()
 no_male=male['patientnumber'].count()
 nan=no_total-no_female-no_male
 y=[no_male,no_female,nan]
-x=['Males','Female','NaN']
+x=['Male','Female','NaN']
 plt.bar(x,y,color=["blue","green","red"])
 plt.show()
